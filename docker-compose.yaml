@@ -1,0 +1,24 @@
+version: '3'
+services:
+  calculator-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: grpcweb/calculator-server
+    ports:
+      - "9090:9090"
+    networks:
+      - grpcweb-net
+  envoy:
+    build:
+      context: ./
+      dockerfile: ./envoy/Dockerfile
+    image: grpcweb/envoy
+    ports:
+      - "8080:8080"
+    networks:
+      - grpcweb-net
+networks:
+  grpcweb-net:
+    external:
+      name: grpcweb-net
